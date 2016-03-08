@@ -1,0 +1,17 @@
+FRAMEWORK: >= NET452
+NUGET
+  remote: https://www.nuget.org/api/v2
+  specs:
+    log4net (2.0.5)
+    MassTransit (3.2.1)
+      NewId (>= 2.1.3)
+      Newtonsoft.Json (>= 7.0.1)
+    NewId (2.1.3)
+    Newtonsoft.Json (7.0.1)
+    NUnit (3.2.0)
+    RavenDB.Client (3.0.30037)
+    RavenDB.Database (3.0.30037)
+      RavenDB.Client (3.0.30037)
+    RavenDB.Embedded (3.0.30037)
+      RavenDB.Database (3.0.30037)
+    Shouldly (2.6.0)

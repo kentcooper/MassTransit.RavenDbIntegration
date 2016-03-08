@@ -1,0 +1,5 @@
+﻿RavenDb.Client
+RavenDb.Embedded
+MassTransit
+Shouldly
+NUnit
