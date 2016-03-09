@@ -49,7 +49,7 @@ Target "Pack" (fun _ ->
 )
 
 Target "Test" (fun _ ->
-    !! ("src/**/NUnit.Test.*.dll")
+    !! ("src/**/*.Tests.dll")
       |> NUnit (fun p ->
           {p with
              DisableShadowCopy = true;
