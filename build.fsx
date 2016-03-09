@@ -10,8 +10,7 @@ open Fake.Testing.NUnit3
 let rootDir = currentDirectory
 let buildDir  = currentDirectory + "/bin/"
 let testsDir  = currentDirectory + "/tests/"
-let nugetDir = currentDirectory + "/src/nuget/"
-let testOutputDir = currentDirectory + "/"
+let nugetDir = currentDirectory + "/nuget/"
 
 let nugetApiKey = environVar "BAMBOO_nugetApiKey"
 let nugetVersion = getBuildParamOrDefault "nugetVersion" null
@@ -37,7 +36,6 @@ Target "BuildTests" (fun _ ->
 )
 
 Target "BuildApp" (fun _ ->
-    // compile all projects below src
     MSBuildRelease buildDir "Build" appReferences
         |> Log "BuildApp-Output: "
 )
@@ -46,7 +44,7 @@ Target "Push" (fun _ ->
     Push (fun p ->
         {p with
             ApiKey = nugetApiKey
-            WorkingDir = "nuget"
+            WorkingDir = nugetDir
         })
 )
 
