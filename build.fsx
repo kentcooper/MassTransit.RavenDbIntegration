@@ -4,11 +4,12 @@
 open Fake
 open Fake.Paket
 open Fake.FileUtils
-open Fake.Testing.XUnit2
+open Fake.Testing.NUnit3
 
 // Directories
 let rootDir = currentDirectory
 let buildDir  = currentDirectory + "/bin/"
+let testsDir  = currentDirectory + "/tests/"
 let nugetDir = currentDirectory + "/src/nuget/"
 let testOutputDir = currentDirectory + "/"
 
@@ -18,13 +19,21 @@ let nugetVersion = getBuildParamOrDefault "nugetVersion" null
 // Filesets
 let appReferences  =
     !! "src/**/*.csproj"
-      ++ "src/**/*.fsproj"
+      -- "src/**/*.Tests.csproj"
+
+let testReferences  =
+    !! "src/**/*.Tests.csproj"
 
 // Targets
 Target "Clean" (fun _ ->
     CleanDirs [buildDir; nugetDir]
     MSBuildRelease buildDir "Clean" appReferences
         |> Log "Clean-Output: "
+)
+
+Target "BuildTests" (fun _ ->
+    MSBuildRelease testsDir "Build" testReferences
+        |> Log "BuildTests-Output: "
 )
 
 Target "BuildApp" (fun _ ->
@@ -49,16 +58,17 @@ Target "Pack" (fun _ ->
 )
 
 Target "Test" (fun _ ->
-    !! ("src/**/*.Tests.dll")
-      |> NUnit (fun p ->
+    !! (testsDir + "/*.Tests.dll")
+      |> NUnit3 (fun p ->
           {p with
-             DisableShadowCopy = true;
-             OutputFile = rootDir + "/TestResults.xml" })
+             ToolPath = "src\\packages\\NUnit.ConsoleRunner\\tools\\nunit3-console.exe"
+          })
 )
 
 // Build order
 "Clean"
   ==> "BuildApp"
+  ==> "BuildTests"
   ==> "Test"
   ==> "Pack"
   ==> "Push"

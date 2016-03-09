@@ -9,3 +9,4 @@ nuget RavenDb.Client ~3
 nuget RavenDb.Embedded ~3
 nuget Shouldly
 nuget NUnit
+nuget NUnit.Runners

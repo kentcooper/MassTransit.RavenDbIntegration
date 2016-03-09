@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MassTransit.Saga;
 using MassTransit.TestFramework;
 using NUnit.Framework;
@@ -25,7 +26,7 @@ namespace MassTransit.RavenDbIntegration.Tests
         }
 
         [Test]
-        public async void A_correlated_message_should_find_the_correct_saga()
+        public async Task A_correlated_message_should_find_the_correct_saga()
         {
             Guid sagaId = NewId.NextGuid();
             var message = new InitiateSimpleSaga(sagaId);
@@ -46,7 +47,7 @@ namespace MassTransit.RavenDbIntegration.Tests
         }
 
         [Test]
-        public async void An_initiating_message_should_start_the_saga()
+        public async Task An_initiating_message_should_start_the_saga()
         {
             Guid sagaId = NewId.NextGuid();
             var message = new InitiateSimpleSaga(sagaId);
