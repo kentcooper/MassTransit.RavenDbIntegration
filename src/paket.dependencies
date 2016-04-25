@@ -2,9 +2,9 @@ source https://www.nuget.org/api/v2
 framework >= net452
 
 nuget FAKE
-nuget MassTransit 3.2.2
-nuget NewId 2.1.3
-nuget Newtonsoft.Json 7.0.1
+nuget MassTransit
+nuget NewId
+nuget Newtonsoft.Json
 nuget RavenDb.Client ~3
 nuget RavenDb.Embedded ~3
 nuget Shouldly
