@@ -28,6 +28,7 @@ namespace MassTransit.RavenDbIntegration
             {
                 return await session.Query<TSaga>()
                     .Where(query.FilterExpression)
+                    .Customize(x => x.WaitForNonStaleResultsAsOfLastWrite())
                     .Select(x => x.CorrelationId)
                     .ToListAsync();
             }
@@ -97,6 +98,7 @@ namespace MassTransit.RavenDbIntegration
                 {
                     var instances = await session.Query<TSaga>()
                         .Where(context.Query.FilterExpression)
+                        .Customize(x => x.WaitForNonStaleResultsAsOfLastWrite())
                         .ToListAsync();
 
                     if (instances.Count == 0)
@@ -224,5 +226,6 @@ namespace MassTransit.RavenDbIntegration
                 }
             }
         }
+
     }
 }

@@ -12,7 +12,7 @@ namespace MassTransit.RavenDbIntegration.Tests
     {
         private IDocumentStore _store;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _store = new EmbeddableDocumentStore
@@ -23,7 +23,7 @@ namespace MassTransit.RavenDbIntegration.Tests
             _store.RegisterSagaIdConvention();
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             _store.Dispose();

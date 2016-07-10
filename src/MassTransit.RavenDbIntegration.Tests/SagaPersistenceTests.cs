@@ -14,12 +14,12 @@ namespace MassTransit.RavenDbIntegration.Tests
     {
         private IDocumentStore _store;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetupStore()
         {
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TearDownStore()
         {
             _store.Dispose();
