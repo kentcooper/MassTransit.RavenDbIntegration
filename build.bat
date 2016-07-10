@@ -1,1 +1,1 @@
-src\packages\FAKE\tools\FAKE.exe build.fsx %*
+packages\FAKE\tools\FAKE.exe build.fsx %*
