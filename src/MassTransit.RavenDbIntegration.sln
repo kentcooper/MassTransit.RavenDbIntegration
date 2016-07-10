@@ -5,8 +5,8 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{11E0DE81-921F-4A12-93C7-069BDEE32F8F}"
 	ProjectSection(SolutionItems) = preProject
-		paket.dependencies = paket.dependencies
-		paket.lock = paket.lock
+		..\paket.dependencies = ..\paket.dependencies
+		..\paket.lock = ..\paket.lock
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.RavenDbIntegration", "MassTransit.RavenDbIntegration\MassTransit.RavenDbIntegration.csproj", "{D82CBF97-2D75-4888-A8B1-B02361C92C87}"
