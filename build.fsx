@@ -1,5 +1,5 @@
 // include Fake libs
-#r "src/packages/FAKE/tools/FakeLib.dll"
+#r "packages/FAKE/tools/FakeLib.dll"
 
 open Fake
 open Fake.Paket
@@ -13,6 +13,7 @@ let testsDir  = currentDirectory + "/tests/"
 let nugetDir = currentDirectory + "/nuget/"
 
 let nugetApiKey = environVar "BAMBOO_nugetApiKey"
+let nugetUrl = environVar "BAMBOO_nugetPublishUrl"
 let nugetVersion = getBuildParamOrDefault "nugetVersion" null
 
 // Filesets
@@ -44,6 +45,7 @@ Target "Push" (fun _ ->
     Push (fun p ->
         {p with
             ApiKey = nugetApiKey
+            PublishUrl = nugetUrl
             WorkingDir = nugetDir
         })
 )
@@ -59,7 +61,7 @@ Target "Test" (fun _ ->
     !! (testsDir + "/*.Tests.dll")
       |> NUnit3 (fun p ->
           {p with
-             ToolPath = "src\\packages\\NUnit.ConsoleRunner\\tools\\nunit3-console.exe"
+             ToolPath = "packages\\NUnit.ConsoleRunner\\tools\\nunit3-console.exe"
           })
 )
 
