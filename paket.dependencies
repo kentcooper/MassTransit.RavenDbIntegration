@@ -4,7 +4,7 @@ framework >= net452
 nuget FAKE
 nuget MassTransit
 nuget NewId
-nuget Newtonsoft.Json ~8
+nuget Newtonsoft.Json < 9
 nuget RavenDb.Client ~3
 nuget RavenDb.Embedded ~3
 nuget Shouldly
