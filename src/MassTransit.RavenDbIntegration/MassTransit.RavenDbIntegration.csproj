@@ -47,7 +47,6 @@
     <Compile Include="IFetchSagaRepository.cs" />
     <Compile Include="RavenDbSagaConsumeContext.cs" />
     <Compile Include="RavenDbSagaConventions.cs" />
-    <Compile Include="RavenDbSharedSessionSagaRepository.cs" />
     <Compile Include="RavenDbSagaRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

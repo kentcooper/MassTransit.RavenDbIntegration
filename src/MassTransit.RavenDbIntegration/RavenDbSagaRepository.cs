@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MassTransit.Logging;
 using MassTransit.Pipeline;
@@ -11,7 +12,7 @@ using Raven.Client.Linq;
 
 namespace MassTransit.RavenDbIntegration
 {
-    public class RavenDbSagaRepository<TSaga> : ISagaRepository<TSaga>, IQuerySagaRepository<TSaga>
+    public class RavenDbSagaRepository<TSaga> : ISagaRepository<TSaga>, IQuerySagaRepository<TSaga>, IFetchSagaRepository<TSaga>
         where TSaga : class, ISaga
     {
         private static readonly ILog _log = Logger.Get<RavenDbSagaRepository<TSaga>>();
@@ -227,5 +228,16 @@ namespace MassTransit.RavenDbIntegration
             }
         }
 
+        public async Task<IList<TSaga>> FindWhere(Expression<Func<TSaga, bool>> filter)
+        {
+            using (var session = _store.OpenAsyncSession())
+                return await session.Query<TSaga>().Where(filter).ToListAsync();
+        }
+
+        public async Task<TSaga> Load(Guid sagaId)
+        {
+            using (var session = _store.OpenAsyncSession())
+                return await session.LoadAsync<TSaga>(sagaId);
+        }
     }
 }
