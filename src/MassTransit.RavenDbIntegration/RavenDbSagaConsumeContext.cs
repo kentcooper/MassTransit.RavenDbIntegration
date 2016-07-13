@@ -4,6 +4,7 @@ using MassTransit.Context;
 using MassTransit.Logging;
 using MassTransit.Saga;
 using MassTransit.Util;
+using Raven.Abstractions.Data;
 using Raven.Client;
 
 namespace MassTransit.RavenDbIntegration
@@ -14,15 +15,18 @@ namespace MassTransit.RavenDbIntegration
         where TMessage : class
         where TSaga : class, ISaga
     {
-        static readonly ILog _log = Logger.Get<RavenDbSagaRepository<TSaga>>();
-        readonly IAsyncDocumentSession _session;
+        private static readonly ILog Log = Logger.Get<RavenDbSagaRepository<TSaga>>();
+        private readonly IAsyncDocumentSession _session;
 
         public RavenDbSagaConsumeContext(IAsyncDocumentSession session, ConsumeContext<TMessage> context, TSaga instance)
             : base(context)
         {
             Saga = instance;
+            Tag = session.Advanced.GetEtagFor(instance);
             _session = session;
         }
+
+        public Etag Tag { get; set; }
 
         Guid? MessageContext.CorrelationId => Saga.CorrelationId;
 
@@ -39,9 +43,9 @@ namespace MassTransit.RavenDbIntegration
         {
             _session.Delete(Saga);
             IsCompleted = true;
-            if (_log.IsDebugEnabled)
+            if (Log.IsDebugEnabled)
             {
-                _log.DebugFormat("SAGA:{0}:{1} Removed {2}", TypeMetadataCache<TSaga>.ShortName, TypeMetadataCache<TMessage>.ShortName,
+                Log.DebugFormat("SAGA:{0}:{1} Removed {2}", TypeMetadataCache<TSaga>.ShortName, TypeMetadataCache<TMessage>.ShortName,
                     Saga.CorrelationId);
             }
 

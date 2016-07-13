@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MassTransit.Logging;
 using MassTransit.Pipeline;
 using MassTransit.Saga;
+using MassTransit.Saga.Policies;
 using MassTransit.Util;
 using Raven.Client;
 using Raven.Client.Linq;
@@ -29,7 +30,7 @@ namespace MassTransit.RavenDbIntegration
             {
                 return await session.Query<TSaga>()
                     .Where(query.FilterExpression)
-                    .Customize(x => x.WaitForNonStaleResultsAsOfLastWrite())
+                    .Customize(x => x.WaitForNonStaleResultsAsOf(DateTime.Now + TimeSpan.FromMinutes(1)))
                     .Select(x => x.CorrelationId)
                     .ToListAsync();
             }
@@ -53,20 +54,21 @@ namespace MassTransit.RavenDbIntegration
             var sagaId = context.CorrelationId.Value;
             using (var session = _store.OpenAsyncSession())
             {
-                var sagaDocId = session.Advanced.DocumentStore
-                    .Conventions.FindFullDocumentKeyFromNonStringIdentifier(sagaId, typeof(TSaga), false);
+                session.Advanced.AllowNonAuthoritativeInformation = false;
+                session.Advanced.UseOptimisticConcurrency = true;
+
                 var inserted = false;
                 TSaga instance;
 
                 if (policy.PreInsertInstance(context, out instance))
-                    inserted = await PreInsertSagaInstance<T>(session, instance, inserted);
+                    inserted = await PreInsertSagaInstance<T>(session, instance);
 
                 if (instance == null)
-                    instance = await session.LoadAsync<TSaga>(sagaDocId);
+                    instance = await session.LoadAsync<TSaga>(sagaId);
+
                 if (instance == null)
                 {
                     var missingSagaPipe = new MissingPipe<T>(session, next);
-
                     await policy.Missing(context, missingSagaPipe).ConfigureAwait(false);
                 }
                 else
@@ -80,11 +82,7 @@ namespace MassTransit.RavenDbIntegration
                     await policy.Existing(sagaConsumeContext, next).ConfigureAwait(false);
 
                     if (inserted && !sagaConsumeContext.IsCompleted)
-                    {
-                        sagaDocId = session.Advanced.DocumentStore
-                            .Conventions.FindFullDocumentKeyFromNonStringIdentifier(instance.CorrelationId, instance.GetType(), false);
-                        await session.StoreAsync(instance, sagaDocId);
-                    }
+                        await session.StoreAsync(instance, sagaId);
                 }
                 await session.SaveChangesAsync();
             }
@@ -95,11 +93,14 @@ namespace MassTransit.RavenDbIntegration
         {
             using (var session = _store.OpenAsyncSession())
             {
+                session.Advanced.AllowNonAuthoritativeInformation = false;
+                session.Advanced.UseOptimisticConcurrency = true;
+
                 try
                 {
                     var instances = await session.Query<TSaga>()
                         .Where(context.Query.FilterExpression)
-                        .Customize(x => x.WaitForNonStaleResultsAsOfLastWrite())
+                        .Customize(x => x.WaitForNonStaleResultsAsOf(DateTime.Now + TimeSpan.FromMinutes(1)))
                         .ToListAsync();
 
                     if (instances.Count == 0)
@@ -109,10 +110,8 @@ namespace MassTransit.RavenDbIntegration
                     }
                     else
                     {
-                        await
-                            Task.WhenAll(
-                                instances.Select(instance => SendToInstance(context, policy, instance, next, session)))
-                                .ConfigureAwait(false);
+                        foreach (var instance in instances)
+                            await SendToInstance(context, policy, instance, next, session).ConfigureAwait(false);
                     }
                     await session.SaveChangesAsync();
                 }
@@ -131,20 +130,16 @@ namespace MassTransit.RavenDbIntegration
             }
         }
 
-        private static async Task<bool> PreInsertSagaInstance<T>(IAsyncDocumentSession session, TSaga instance,
-            bool inserted)
+        private static async Task<bool> PreInsertSagaInstance<T>(IAsyncDocumentSession session, TSaga instance)
         {
             try
             {
-                var sagaDocId = session.Advanced.DocumentStore
-                    .Conventions.FindFullDocumentKeyFromNonStringIdentifier(instance.CorrelationId, instance.GetType(), false);
-                await session.StoreAsync(instance, sagaDocId);
+                await session.StoreAsync(instance, instance.CorrelationId);
                 await session.SaveChangesAsync();
-
-                inserted = true;
 
                 _log.DebugFormat("SAGA:{0}:{1} Insert {2}", TypeMetadataCache<TSaga>.ShortName, instance.CorrelationId,
                     TypeMetadataCache<T>.ShortName);
+                return true;
             }
             catch (Exception ex)
             {
@@ -154,8 +149,8 @@ namespace MassTransit.RavenDbIntegration
                         instance.CorrelationId,
                         TypeMetadataCache<T>.ShortName, ex.Message);
                 }
+                return false;
             }
-            return inserted;
         }
 
         private static async Task SendToInstance<T>(SagaQueryConsumeContext<TSaga, T> context,
@@ -220,11 +215,7 @@ namespace MassTransit.RavenDbIntegration
                 await _next.Send(proxy).ConfigureAwait(false);
 
                 if (!proxy.IsCompleted)
-                {
-                    var sagaDocId = _session.Advanced.DocumentStore
-                        .Conventions.FindFullDocumentKeyFromNonStringIdentifier(context.Saga.CorrelationId, context.Saga.GetType(), false);
-                    await _session.StoreAsync(context.Saga, sagaDocId);
-                }
+                    await _session.StoreAsync(context.Saga, context.Saga.CorrelationId);
             }
         }
 
