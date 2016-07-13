@@ -44,10 +44,8 @@ namespace MassTransit.RavenDbIntegration.Tests
             using (var session = _store.OpenAsyncSession())
             {
                 var sagaDocId = session.Advanced.DocumentStore.Conventions.FindFullDocumentKeyFromNonStringIdentifier(guid, typeof(TestSaga), false);
-
-                var test = await session.LoadAsync<TestSaga>(sagaDocId); //$"{typeof (ISaga).Name}/{guid}");
+                var test = await session.LoadAsync<TestSaga>(sagaDocId);
                 Assert.AreEqual(guid, test.CorrelationId);
-
             }
         }
 

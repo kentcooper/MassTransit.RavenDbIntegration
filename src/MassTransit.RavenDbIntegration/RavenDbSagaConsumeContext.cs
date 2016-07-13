@@ -22,11 +22,8 @@ namespace MassTransit.RavenDbIntegration
             : base(context)
         {
             Saga = instance;
-            Tag = session.Advanced.GetEtagFor(instance);
             _session = session;
         }
-
-        public Etag Tag { get; set; }
 
         Guid? MessageContext.CorrelationId => Saga.CorrelationId;
 

@@ -12,7 +12,19 @@ namespace MassTransit.RavenDbIntegration.Tests
     [TestFixture, Category("Integration")]
     public class LocatingAnExistingSaga : InMemoryTestFixture
     {
-        private IDocumentStore _store;
+        IDocumentStore _store;
+        ISagaRepository<SimpleSaga> _sagaRepository;
+
+        public LocatingAnExistingSaga()
+        {
+            _store = new EmbeddableDocumentStore
+            {
+                RunInMemory = true
+            };
+            _store.Initialize();
+            _store.RegisterSagaIdConvention();
+            _sagaRepository = new RavenDbSagaRepository<SimpleSaga>(_store);
+        }
 
         [OneTimeSetUp]
         public void SetupStore()
@@ -33,7 +45,7 @@ namespace MassTransit.RavenDbIntegration.Tests
 
             await InputQueueSendEndpoint.Send(message);
 
-            Guid? foundId = await _sagaRepository.Value.ShouldContainSaga(message.CorrelationId, TestTimeout);
+            Guid? foundId = await _sagaRepository.ShouldContainSaga(message.CorrelationId, TestTimeout);
 
             foundId.HasValue.ShouldBe(true);
 
@@ -41,7 +53,7 @@ namespace MassTransit.RavenDbIntegration.Tests
 
             await InputQueueSendEndpoint.Send(nextMessage);
 
-            foundId = await _sagaRepository.Value.ShouldContainSaga(x => x.CorrelationId == sagaId && x.Completed, TestTimeout);
+            foundId = await _sagaRepository.ShouldContainSaga(x => x.CorrelationId == sagaId && x.Completed, TestTimeout);
 
             foundId.HasValue.ShouldBe(true);
         }
@@ -54,27 +66,15 @@ namespace MassTransit.RavenDbIntegration.Tests
 
             await InputQueueSendEndpoint.Send(message);
 
-            Guid? foundId = await _sagaRepository.Value.ShouldContainSaga(message.CorrelationId, TestTimeout);
+            Guid? foundId = await _sagaRepository.ShouldContainSaga(message.CorrelationId, TestTimeout);
 
             foundId.HasValue.ShouldBe(true);
         }
 
-        readonly Lazy<ISagaRepository<SimpleSaga>> _sagaRepository;
-
-        public LocatingAnExistingSaga()
-        {
-            _store = new EmbeddableDocumentStore
-            {
-                RunInMemory = true
-            };
-            _store.Initialize();
-            _store.RegisterSagaIdConvention();
-            _sagaRepository = new Lazy<ISagaRepository<SimpleSaga>>(() => new RavenDbSagaRepository<SimpleSaga>(_store));
-        }
 
         protected override void ConfigureInputQueueEndpoint(IInMemoryReceiveEndpointConfigurator configurator)
         {
-            configurator.Saga(_sagaRepository.Value);
+            configurator.Saga(_sagaRepository);
         }
     }
 }

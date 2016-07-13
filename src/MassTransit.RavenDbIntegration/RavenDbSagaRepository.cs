@@ -54,7 +54,7 @@ namespace MassTransit.RavenDbIntegration
             var sagaId = context.CorrelationId.Value;
             using (var session = _store.OpenAsyncSession())
             {
-                session.Advanced.AllowNonAuthoritativeInformation = false;
+                //session.Advanced.AllowNonAuthoritativeInformation = false;
                 session.Advanced.UseOptimisticConcurrency = true;
 
                 var inserted = false;
@@ -64,7 +64,7 @@ namespace MassTransit.RavenDbIntegration
                     inserted = await PreInsertSagaInstance<T>(session, instance);
 
                 if (instance == null)
-                    instance = await session.LoadAsync<TSaga>(sagaId);
+                    instance = await session.LoadAsync<TSaga>(ConvertToSagaId(session, sagaId));
 
                 if (instance == null)
                 {
@@ -82,7 +82,7 @@ namespace MassTransit.RavenDbIntegration
                     await policy.Existing(sagaConsumeContext, next).ConfigureAwait(false);
 
                     if (inserted && !sagaConsumeContext.IsCompleted)
-                        await session.StoreAsync(instance, sagaId);
+                        await session.StoreAsync(instance, GetSagaId(session, instance));
                 }
                 await session.SaveChangesAsync();
             }
@@ -93,7 +93,7 @@ namespace MassTransit.RavenDbIntegration
         {
             using (var session = _store.OpenAsyncSession())
             {
-                session.Advanced.AllowNonAuthoritativeInformation = false;
+                //session.Advanced.AllowNonAuthoritativeInformation = false;
                 session.Advanced.UseOptimisticConcurrency = true;
 
                 try
@@ -134,7 +134,7 @@ namespace MassTransit.RavenDbIntegration
         {
             try
             {
-                await session.StoreAsync(instance, instance.CorrelationId);
+                await session.StoreAsync(instance, GetSagaId(session, instance));
                 await session.SaveChangesAsync();
 
                 _log.DebugFormat("SAGA:{0}:{1} Insert {2}", TypeMetadataCache<TSaga>.ShortName, instance.CorrelationId,
@@ -152,6 +152,12 @@ namespace MassTransit.RavenDbIntegration
                 return false;
             }
         }
+
+        private static string ConvertToSagaId(IAsyncDocumentSession session, Guid guid)
+            => session.Advanced.DocumentStore.Conventions.FindFullDocumentKeyFromNonStringIdentifier(guid, typeof(TSaga), false);
+
+        private static string GetSagaId(IAsyncDocumentSession session, TSaga instance)
+            => session.Advanced.DocumentStore.Conventions.FindFullDocumentKeyFromNonStringIdentifier(instance.CorrelationId, instance.GetType(), false);
 
         private static async Task SendToInstance<T>(SagaQueryConsumeContext<TSaga, T> context,
             ISagaPolicy<TSaga, T> policy, TSaga instance,
@@ -215,7 +221,7 @@ namespace MassTransit.RavenDbIntegration
                 await _next.Send(proxy).ConfigureAwait(false);
 
                 if (!proxy.IsCompleted)
-                    await _session.StoreAsync(context.Saga, context.Saga.CorrelationId);
+                    await _session.StoreAsync(context.Saga, GetSagaId(_session, context.Saga));
             }
         }
 
@@ -228,7 +234,7 @@ namespace MassTransit.RavenDbIntegration
         public async Task<TSaga> Load(Guid sagaId)
         {
             using (var session = _store.OpenAsyncSession())
-                return await session.LoadAsync<TSaga>(sagaId);
+                return await session.LoadAsync<TSaga>(ConvertToSagaId(session, sagaId));
         }
     }
 }
