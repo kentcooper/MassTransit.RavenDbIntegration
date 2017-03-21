@@ -2,6 +2,7 @@ FRAMEWORK: >= NET452
 NUGET
   remote: https://www.nuget.org/api/v2
     FAKE (4.56)
+    GitVersion.CommandLine (3.6.5)
     GreenPipes (1.0.9)
     MassTransit (3.5.6)
       GreenPipes (>= 1.0.9)
