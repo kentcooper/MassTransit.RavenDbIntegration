@@ -37,7 +37,7 @@ NUGET
       System.Security.Cryptography.X509Certificates (>= 4.3) - framework: >= net46
       System.Threading.Timer (>= 4.3)
     NewId (3.0)
-    Newtonsoft.Json (10.0.1)
+    Newtonsoft.Json (9.0.1)
     NUnit (3.6.1)
       NETStandard.Library (>= 1.6) - framework: >= net463
       System.Runtime.Loader (>= 4.0) - framework: >= net463

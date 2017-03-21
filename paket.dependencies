@@ -5,7 +5,7 @@ nuget FAKE
 nuget MassTransit
 nuget MassTransit.TestFramework
 nuget NewId
-nuget Newtonsoft.Json
+nuget Newtonsoft.Json < 10
 nuget RavenDb.Client < 4
 nuget RavenDb.Embedded < 4
 nuget Shouldly
