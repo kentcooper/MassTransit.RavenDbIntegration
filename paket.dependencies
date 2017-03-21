@@ -11,3 +11,4 @@ nuget RavenDb.Embedded < 4
 nuget Shouldly
 nuget NUnit
 nuget NUnit.Runners
+nuget GitVersion.CommandLine

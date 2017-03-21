@@ -29,7 +29,7 @@ let testOutputDir = currentDirectory + "/"
 let nugetFeed = environVar "BAMBOO_nugetPublishUrl"
 let nugetApiKey = environVar "BAMBOO_nugetApiKey"
 
-let gitversion = "gitversion"
+let gitversion = "packages/GitVersion.CommandLine/tools/GitVersion.exe"
 
 // Filesets
 let appReferences =
