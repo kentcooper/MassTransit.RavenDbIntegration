@@ -17,7 +17,7 @@ open Fake.Testing.NUnit3
 let pathInfo = directoryInfo "."
 let product = environVarOrDefault "BAMBOO_productName" pathInfo.Name
 let company = "Alexey Zimarev"
-let copyright = "Copyright © " + System.DateTime.UtcNow.Year.ToString() + " " + company
+let copyright = "Copyright Â© " + System.DateTime.UtcNow.Year.ToString() + " " + company
 
 // Directories
 let rootDir = currentDirectory
@@ -109,6 +109,7 @@ Target "Pack" (fun _ ->
             OutputPath = nugetDir
             WorkingDir = rootDir + "/src"
             Version = gitVer.NuGetVersionV2
+            MinimumFromLockFile = true
          })
 )
 

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using GreenPipes;
 using MassTransit.Logging;
-using MassTransit.Pipeline;
 using MassTransit.Saga;
 using MassTransit.Util;
 using Raven.Client;
@@ -12,7 +12,8 @@ using Raven.Client.Linq;
 
 namespace MassTransit.RavenDbIntegration
 {
-    public class RavenDbSagaRepository<TSaga> : ISagaRepository<TSaga>, IQuerySagaRepository<TSaga>, IFetchSagaRepository<TSaga>
+    public class RavenDbSagaRepository<TSaga> : ISagaRepository<TSaga>, IQuerySagaRepository<TSaga>,
+        IFetchSagaRepository<TSaga>
         where TSaga : class, ISaga
     {
         private static readonly ILog _log = Logger.Get<RavenDbSagaRepository<TSaga>>();
@@ -55,7 +56,7 @@ namespace MassTransit.RavenDbIntegration
             IPipe<SagaConsumeContext<TSaga, T>> next)
         {
             if (!context.CorrelationId.HasValue)
-                throw new SagaException("The CorrelationId was not specified", typeof (TSaga), typeof (T));
+                throw new SagaException("The CorrelationId was not specified", typeof(TSaga), typeof(T));
 
             var sagaId = context.CorrelationId.Value;
             using (var session = OpenSession())
@@ -66,32 +67,45 @@ namespace MassTransit.RavenDbIntegration
                 if (policy.PreInsertInstance(context, out instance))
                     inserted = await PreInsertSagaInstance<T>(session, instance);
 
-                if (instance == null)
-                    instance = await session.LoadAsync<TSaga>(ConvertToSagaId(session, sagaId)).ConfigureAwait(false);
+                try
+                {
+                    if (instance == null)
+                        instance = await session.LoadAsync<TSaga>(ConvertToSagaId(session, sagaId))
+                            .ConfigureAwait(false);
 
-                if (instance == null)
-                {
-                    var missingSagaPipe = new MissingPipe<T>(session, next);
-                    await policy.Missing(context, missingSagaPipe).ConfigureAwait(false);
-                }
-                else
-                {
-                    if (_log.IsDebugEnabled)
+                    if (instance == null)
                     {
-                        _log.DebugFormat("SAGA:{0}:{1} Used {2}", TypeMetadataCache<TSaga>.ShortName,
-                            instance.CorrelationId, TypeMetadataCache<T>.ShortName);
+                        var missingSagaPipe = new MissingPipe<T>(session, next);
+                        await policy.Missing(context, missingSagaPipe).ConfigureAwait(false);
                     }
-                    var sagaConsumeContext = new RavenDbSagaConsumeContext<TSaga, T>(session, context, instance);
+                    else
+                    {
+                        if (_log.IsDebugEnabled)
+                        {
+                            _log.DebugFormat("SAGA:{0}:{1} Used {2}", TypeMetadataCache<TSaga>.ShortName,
+                                instance.CorrelationId, TypeMetadataCache<T>.ShortName);
+                        }
+                        var sagaConsumeContext = new RavenDbSagaConsumeContext<TSaga, T>(session, context, instance);
 
-                    await policy.Existing(sagaConsumeContext, next).ConfigureAwait(false);
+                        await policy.Existing(sagaConsumeContext, next).ConfigureAwait(false);
 
-                    if (inserted && !sagaConsumeContext.IsCompleted)
-                        await session.StoreAsync(instance, GetSagaId(session, instance)).ConfigureAwait(false);
+                        if (inserted && !sagaConsumeContext.IsCompleted)
+                            await session.StoreAsync(instance, GetSagaId(session, instance)).ConfigureAwait(false);
 
-                    if (_log.IsDebugEnabled)
-                        _log.DebugFormat("SAGA (Send): New saga state: {@Saga}", instance);
+                        if (_log.IsDebugEnabled)
+                            _log.DebugFormat("SAGA (Send): New saga state: {@Saga}", instance);
+                    }
+                    await session.SaveChangesAsync().ConfigureAwait(false);
                 }
-                await session.SaveChangesAsync().ConfigureAwait(false);
+                catch (Exception ex)
+                {
+                    if (_log.IsErrorEnabled)
+                        _log.Error(
+                            $"SAGA:{TypeMetadataCache<TSaga>.ShortName} Exception {TypeMetadataCache<T>.ShortName}",
+                            ex);
+
+                    throw;
+                }
             }
         }
 
@@ -122,11 +136,15 @@ namespace MassTransit.RavenDbIntegration
                 {
                     if (_log.IsErrorEnabled)
                         _log.Error("Saga Exception Occurred", sex);
+
+                    throw;
                 }
                 catch (Exception ex)
                 {
                     if (_log.IsErrorEnabled)
-                        _log.Error($"SAGA:{TypeMetadataCache<TSaga>.ShortName} Exception {TypeMetadataCache<T>.ShortName}", ex);
+                        _log.Error(
+                            $"SAGA:{TypeMetadataCache<TSaga>.ShortName} Exception {TypeMetadataCache<T>.ShortName}",
+                            ex);
 
                     throw new SagaException(ex.Message, typeof(TSaga), typeof(T), Guid.Empty, ex);
                 }
@@ -157,10 +175,12 @@ namespace MassTransit.RavenDbIntegration
         }
 
         private static string ConvertToSagaId(IAsyncDocumentSession session, Guid guid)
-            => session.Advanced.DocumentStore.Conventions.FindFullDocumentKeyFromNonStringIdentifier(guid, typeof(TSaga), false);
+            => session.Advanced.DocumentStore.Conventions.FindFullDocumentKeyFromNonStringIdentifier(guid,
+                typeof(TSaga), false);
 
         private static string GetSagaId(IAsyncDocumentSession session, TSaga instance)
-            => session.Advanced.DocumentStore.Conventions.FindFullDocumentKeyFromNonStringIdentifier(instance.CorrelationId, instance.GetType(), false);
+            => session.Advanced.DocumentStore.Conventions.FindFullDocumentKeyFromNonStringIdentifier(
+                instance.CorrelationId, instance.GetType(), false);
 
         private static async Task SendToInstance<T>(SagaQueryConsumeContext<TSaga, T> context,
             ISagaPolicy<TSaga, T> policy, TSaga instance,
@@ -171,7 +191,8 @@ namespace MassTransit.RavenDbIntegration
             {
                 if (_log.IsDebugEnabled)
                 {
-                    _log.DebugFormat("SAGA:{0}:{1} Used {2}", TypeMetadataCache<TSaga>.ShortName, instance.CorrelationId,
+                    _log.DebugFormat("SAGA:{0}:{1} Used {2}", TypeMetadataCache<TSaga>.ShortName,
+                        instance.CorrelationId,
                         TypeMetadataCache<T>.ShortName);
                 }
                 var sagaConsumeContext = new RavenDbSagaConsumeContext<TSaga, T>(session, context, instance);
@@ -184,7 +205,7 @@ namespace MassTransit.RavenDbIntegration
             }
             catch (Exception ex)
             {
-                throw new SagaException(ex.Message, typeof (TSaga), typeof (T), instance.CorrelationId, ex);
+                throw new SagaException(ex.Message, typeof(TSaga), typeof(T), instance.CorrelationId, ex);
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿RavenDb.Client
 RavenDb.Embedded
 MassTransit
+MassTransit.TestFramework
 Shouldly
 NUnit

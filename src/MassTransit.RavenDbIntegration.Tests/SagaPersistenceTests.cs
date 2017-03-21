@@ -72,7 +72,7 @@ namespace MassTransit.RavenDbIntegration.Tests
         }
 
 
-        protected override void ConfigureInputQueueEndpoint(IInMemoryReceiveEndpointConfigurator configurator)
+        protected override void ConfigureInMemoryReceiveEndpoint(IInMemoryReceiveEndpointConfigurator configurator)
         {
             configurator.Saga(_sagaRepository);
         }
