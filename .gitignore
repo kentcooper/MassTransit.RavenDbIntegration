@@ -212,3 +212,4 @@ _Pvt_Extensions/
 ModelManifest.xml
 /.fake
 /tests
+/src/.idea
