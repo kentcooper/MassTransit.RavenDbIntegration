@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f41196d2-2fcc-4018-b8e8-8a91247676f7" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.idea.MassTransit.RavenDbIntegration/.idea/.name" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.idea.MassTransit.RavenDbIntegration/.idea/contentModel.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.idea.MassTransit.RavenDbIntegration/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.idea.MassTransit.RavenDbIntegration/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.idea.MassTransit.RavenDbIntegration/riderModule.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MassTransit.RavenDbIntegration.Tests/Raven.Studio.Html5.zip" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../build.fsx" afterPath="$PROJECT_DIR$/../build.fsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../paket.dependencies" afterPath="$PROJECT_DIR$/../paket.dependencies" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../paket.lock" afterPath="$PROJECT_DIR$/../paket.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MassTransit.RavenDbIntegration.Tests/MassTransit.RavenDbIntegration.Tests.csproj" afterPath="$PROJECT_DIR$/MassTransit.RavenDbIntegration.Tests/MassTransit.RavenDbIntegration.Tests.csproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MassTransit.RavenDbIntegration.Tests/SagaPersistenceTests.cs" afterPath="$PROJECT_DIR$/MassTransit.RavenDbIntegration.Tests/SagaPersistenceTests.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MassTransit.RavenDbIntegration.Tests/paket.references" afterPath="$PROJECT_DIR$/MassTransit.RavenDbIntegration.Tests/paket.references" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MassTransit.RavenDbIntegration.sln" afterPath="$PROJECT_DIR$/MassTransit.RavenDbIntegration.sln" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MassTransit.RavenDbIntegration/MassTransit.RavenDbIntegration.csproj" afterPath="$PROJECT_DIR$/MassTransit.RavenDbIntegration/MassTransit.RavenDbIntegration.csproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MassTransit.RavenDbIntegration/RavenDbSagaRepository.cs" afterPath="$PROJECT_DIR$/MassTransit.RavenDbIntegration/RavenDbSagaRepository.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MassTransit.TestFramework/MassTransit.TestFramework.csproj" afterPath="$PROJECT_DIR$/MassTransit.TestFramework/MassTransit.TestFramework.csproj" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="paket.dependencies" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../paket.dependencies">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="paket.references" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MassTransit.RavenDbIntegration.Tests/paket.references">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="54">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SagaPersistenceTests.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MassTransit.RavenDbIntegration.Tests/SagaPersistenceTests.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1296">
+              <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+              <folding>
+                <marker date="1490108217051" expanded="true" signature="6:188" ph="..." />
+                <marker date="1490108217051" expanded="true" signature="236:2305" ph="{...}" />
+                <marker date="1490108217051" expanded="true" signature="343:2303" ph="{...}" />
+                <marker date="1490108217051" expanded="true" signature="474:764" ph="{...}" />
+                <marker date="1490108217051" expanded="true" signature="546:596" ph="{...}" />
+                <marker date="1490108217051" expanded="true" signature="821:841" ph="{...}" />
+                <marker date="1490108217051" expanded="true" signature="904:954" ph="{...}" />
+                <marker date="1490108217051" expanded="true" signature="1048:1692" ph="{...}" />
+                <marker date="1490108217051" expanded="true" signature="1780:2111" ph="{...}" />
+                <marker date="1490108217051" expanded="true" signature="2229:2297" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RavenDbSagaRepository.cs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/MassTransit.RavenDbIntegration/RavenDbSagaRepository.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="678">
+              <caret line="241" column="0" lean-forward="true" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
+              <folding>
+                <marker date="1490108217026" expanded="true" signature="6:265" ph="..." />
+                <marker date="1490108217026" expanded="true" signature="307:10470" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="481:10468" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="683:731" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="784:947" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="1023:1414" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="1081:1404" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="1467:1646" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="1579:1634" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="1808:4172" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="2076:4162" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="2333:3816" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="2588:2807" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="2832:3722" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="2903:3150" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="3853:4148" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="4355:5947" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="4413:5937" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="4447:5300" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="4597:4816" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="4841:5228" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="5342:5519" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="5556:5923" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="6060:6848" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="6086:6449" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="6482:6838" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="6537:6794" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="7608:8403" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="7634:8140" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="7689:7928" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="8174:8225" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="8258:8393" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="8413:8602" ph="///     Once the message pipe has processed the saga instance, add it to the saga repository ... " />
+                <marker date="1490108217026" expanded="true" signature="8738:9991" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="9000:9094" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="9151:9217" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="9298:9981" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="9353:9604" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="10080:10241" ph="{...}" />
+                <marker date="1490108217026" expanded="true" signature="10293:10462" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RavenDbSagaConsumeContext.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MassTransit.RavenDbIntegration/RavenDbSagaConsumeContext.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <marker date="1490104327035" expanded="true" signature="6:196" ph="..." />
+                <marker date="1490104327035" expanded="true" signature="238:1813" ph="{...}" />
+                <marker date="1490104327035" expanded="true" signature="456:1811" ph="{...}" />
+                <marker date="1490104327035" expanded="true" signature="757:838" ph="{...}" />
+                <marker date="1490104327035" expanded="true" signature="985:1293" ph="{...}" />
+                <marker date="1490104327035" expanded="true" signature="1348:1715" ph="{...}" />
+                <marker date="1490104327035" expanded="true" signature="1461:1665" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InMemoryTestFixture.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MassTransit.TestFramework/InMemoryTestFixture.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="34" column="54" lean-forward="false" selection-start-line="34" selection-start-column="54" selection-end-line="34" selection-end-column="54" />
+              <folding>
+                <marker date="1474539581853" expanded="true" signature="6:190" ph="..." />
+                <marker date="1474539581853" expanded="true" signature="227:6960" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="230:859" ph="/* Copyright 2007-2015 Chris Patterson, Dru Sellers, Travis Smith, et. al. ... */" />
+                <marker date="1474539581853" expanded="true" signature="922:6958" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="1430:1819" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="1829:1917" ph="/// The sending endpoint for the InputQueue ... " />
+                <marker date="1474539581853" expanded="true" signature="2010:2091" ph="/// The sending endpoint for the Bus ... " />
+                <marker date="1474539581853" expanded="true" signature="2252:2567" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="2325:2557" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="2782:2899" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="2974:3044" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="3101:3164" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="3189:3482" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="3556:3710" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="3948:4021" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="4084:4150" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="4178:4573" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="4204:4314" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="4347:4451" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="4471:4563" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="4664:4684" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="4743:4764" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="4875:4895" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="4928:5353" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="5006:5341" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="5392:5553" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="5621:6261" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="5800:5910" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="5954:6011" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="6048:6076" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="6116:6144" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="6191:6251" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="6319:6952" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="6491:6601" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="6645:6673" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="6710:6767" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="6807:6867" ph="{...}" />
+                <marker date="1474539581853" expanded="true" signature="6914:6942" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/../paket.dependencies" />
+        <option value="$PROJECT_DIR$/MassTransit.RavenDbIntegration.Tests/paket.references" />
+        <option value="$PROJECT_DIR$/MassTransit.RavenDbIntegration.Tests/SagaPersistenceTests.cs" />
+        <option value="$PROJECT_DIR$/MassTransit.RavenDbIntegration/RavenDbSagaRepository.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1912" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1176" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="SolutionExplorer">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MassTransit.RavenDbIntegration (2 projects)" />
+              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MassTransit.RavenDbIntegration.Tests" />
+              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MassTransit.RavenDbIntegration (2 projects)" />
+              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MassTransit.RavenDbIntegration" />
+              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MassTransit.RavenDbIntegration (2 projects)" />
+              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MassTransit.RavenDbIntegration (2 projects)" />
+              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".paket" />
+              <option name="myItemType" value="com.jetbrains.resharper.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <option name="show-file-system" value="false" />
+        <option name="show-all-items" value="false" />
+      </pane>
+    </panes>
+  </component>
+  <component name="RunManager" selected=".NET Project.Default">
+    <configuration default="true" type="DotNetProject" factoryName=".NET Project">
+      <option name="PROJECT_PATH" value="" />
+      <option name="PROJECT_KIND" value="None" />
+      <option name="PROJECT_TFM" value="" />
+      <option name="EXE_PATH" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="USE_MONO" value="0" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Default" type="DotNetProject" factoryName=".NET Project">
+      <option name="PROJECT_PATH" value="" />
+      <option name="PROJECT_KIND" value="None" />
+      <option name="PROJECT_TFM" value="" />
+      <option name="EXE_PATH" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="USE_MONO" value="0" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <envs />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue=".NET Project.Default" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f41196d2-2fcc-4018-b8e8-8a91247676f7" name="Default" comment="" />
+      <created>1490104345731</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1490104345731</updated>
+      <workItem from="1490104347832" duration="307000" />
+      <workItem from="1490104657314" duration="292000" />
+      <workItem from="1490107520018" duration="766000" />
+    </task>
+    <task id="LOCAL-00001" summary="Updated to the latest MT, fixed the throw bug">
+      <created>1490108249021</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1490108249021</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1365000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1912" y="-8" width="1936" height="1176" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Change Signature" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Errors In Solution" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Unit Tests" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="NuGet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Updated to the latest MT, fixed the throw bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated to the latest MT, fixed the throw bug" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../paket.dependencies">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MassTransit.TestFramework/InMemoryTestFixture.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="34" column="54" lean-forward="false" selection-start-line="34" selection-start-column="54" selection-end-line="34" selection-end-column="54" />
+          <folding>
+            <marker date="1474539581853" expanded="true" signature="6:190" ph="..." />
+            <marker date="1474539581853" expanded="true" signature="227:6960" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="230:859" ph="/* Copyright 2007-2015 Chris Patterson, Dru Sellers, Travis Smith, et. al. ... */" />
+            <marker date="1474539581853" expanded="true" signature="922:6958" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="1430:1819" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="1829:1917" ph="/// The sending endpoint for the InputQueue ... " />
+            <marker date="1474539581853" expanded="true" signature="2010:2091" ph="/// The sending endpoint for the Bus ... " />
+            <marker date="1474539581853" expanded="true" signature="2252:2567" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="2325:2557" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="2782:2899" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="2974:3044" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="3101:3164" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="3189:3482" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="3556:3710" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="3948:4021" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="4084:4150" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="4178:4573" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="4204:4314" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="4347:4451" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="4471:4563" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="4664:4684" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="4743:4764" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="4875:4895" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="4928:5353" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="5006:5341" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="5392:5553" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="5621:6261" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="5800:5910" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="5954:6011" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="6048:6076" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="6116:6144" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="6191:6251" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="6319:6952" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="6491:6601" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="6645:6673" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="6710:6767" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="6807:6867" ph="{...}" />
+            <marker date="1474539581853" expanded="true" signature="6914:6942" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../paket.dependencies">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MassTransit.RavenDbIntegration.Tests/paket.references">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MassTransit.RavenDbIntegration.Tests/SagaPersistenceTests.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1296">
+          <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+          <folding>
+            <marker date="1490108217051" expanded="true" signature="6:188" ph="..." />
+            <marker date="1490108217051" expanded="true" signature="236:2305" ph="{...}" />
+            <marker date="1490108217051" expanded="true" signature="343:2303" ph="{...}" />
+            <marker date="1490108217051" expanded="true" signature="474:764" ph="{...}" />
+            <marker date="1490108217051" expanded="true" signature="546:596" ph="{...}" />
+            <marker date="1490108217051" expanded="true" signature="821:841" ph="{...}" />
+            <marker date="1490108217051" expanded="true" signature="904:954" ph="{...}" />
+            <marker date="1490108217051" expanded="true" signature="1048:1692" ph="{...}" />
+            <marker date="1490108217051" expanded="true" signature="1780:2111" ph="{...}" />
+            <marker date="1490108217051" expanded="true" signature="2229:2297" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MassTransit.RavenDbIntegration/RavenDbSagaConsumeContext.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1490104327035" expanded="true" signature="6:196" ph="..." />
+            <marker date="1490104327035" expanded="true" signature="238:1813" ph="{...}" />
+            <marker date="1490104327035" expanded="true" signature="456:1811" ph="{...}" />
+            <marker date="1490104327035" expanded="true" signature="757:838" ph="{...}" />
+            <marker date="1490104327035" expanded="true" signature="985:1293" ph="{...}" />
+            <marker date="1490104327035" expanded="true" signature="1348:1715" ph="{...}" />
+            <marker date="1490104327035" expanded="true" signature="1461:1665" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MassTransit.RavenDbIntegration/RavenDbSagaRepository.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="678">
+          <caret line="241" column="0" lean-forward="true" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
+          <folding>
+            <marker date="1490108217026" expanded="true" signature="6:265" ph="..." />
+            <marker date="1490108217026" expanded="true" signature="307:10470" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="481:10468" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="683:731" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="784:947" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="1023:1414" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="1081:1404" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="1467:1646" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="1579:1634" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="1808:4172" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="2076:4162" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="2333:3816" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="2588:2807" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="2832:3722" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="2903:3150" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="3853:4148" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="4355:5947" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="4413:5937" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="4447:5300" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="4597:4816" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="4841:5228" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="5342:5519" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="5556:5923" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="6060:6848" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="6086:6449" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="6482:6838" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="6537:6794" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="7608:8403" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="7634:8140" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="7689:7928" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="8174:8225" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="8258:8393" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="8413:8602" ph="///     Once the message pipe has processed the saga instance, add it to the saga repository ... " />
+            <marker date="1490108217026" expanded="true" signature="8738:9991" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="9000:9094" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="9151:9217" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="9298:9981" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="9353:9604" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="10080:10241" ph="{...}" />
+            <marker date="1490108217026" expanded="true" signature="10293:10462" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
