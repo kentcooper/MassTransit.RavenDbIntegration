@@ -55,5 +55,5 @@
     - msbuild /t:build,pack /p:Configuration=Debug /p:Version=%GitVersion_NuGetVersion% ./src/MassTransit.RavenDbIntegration/MassTransit.RavenDbIntegration.csproj
 
   test_script:
-    - docker run -d -p 8080:8080 -e RAVEN_ARGS='--Setup.Mode=None' -e RAVEN_Security_UnsecuredAccessAllowed='PublicNetwork' ravendb/ravendb
+    - docker run -d -p 8080:8080 -e RAVEN_ARGS='--Setup.Mode=None' -e RAVEN_Security_UnsecuredAccessAllowed='PublicNetwork' ravendb/ravendb:windows-nanoserver-latest
     - dotnet test ./src/MassTransit.RavenDbIntegration.Tests/MassTransit.RavenDbIntegration.Tests.csproj
