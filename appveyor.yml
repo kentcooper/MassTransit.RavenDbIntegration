@@ -7,7 +7,8 @@
 
   install:
     - choco install gitversion.portable -pre -y
-
+    - choco install docker-compose 
+    
   assembly_info:
     patch: false
 
@@ -36,6 +37,7 @@
 
   install:
     - choco install gitversion.portable -pre -y
+    - choco install docker-compose 
 
   assembly_info:
     patch: false
