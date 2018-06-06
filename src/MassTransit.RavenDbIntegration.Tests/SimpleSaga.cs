@@ -20,17 +20,21 @@ namespace MassTransit.RavenDbIntegration.Tests
         public Guid SomeOtherId { get; set; }
         public Guid CorrelationId { get; set; }
 
-        public async Task Consume(ConsumeContext<InitiateSimpleSaga> context)
+        public Task Consume(ConsumeContext<InitiateSimpleSaga> context)
         {
             Initiated = true;
             Name = context.Message.Name;
 
             SomeOtherId = CorrelationId;
+            
+            return Task.CompletedTask;
         }
 
-        public async Task Consume(ConsumeContext<ObservableSagaMessage> message)
+        public Task Consume(ConsumeContext<ObservableSagaMessage> message)
         {
             Observed = true;
+            
+            return Task.CompletedTask;
         }
 
         [JsonIgnore]
@@ -39,9 +43,11 @@ namespace MassTransit.RavenDbIntegration.Tests
             get { return (saga, message) => saga.Name == message.Name; }
         }
 
-        public async Task Consume(ConsumeContext<CompleteSimpleSaga> message)
+        public Task Consume(ConsumeContext<CompleteSimpleSaga> message)
         {
             Completed = true;
+            
+            return Task.CompletedTask;
         }
 
     }
