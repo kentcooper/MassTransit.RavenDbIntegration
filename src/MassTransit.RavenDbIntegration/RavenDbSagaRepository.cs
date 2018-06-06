@@ -7,8 +7,8 @@ using GreenPipes;
 using MassTransit.Logging;
 using MassTransit.Saga;
 using MassTransit.Util;
-using Raven.Client;
-using Raven.Client.Linq;
+using Raven.Client.Documents;
+using Raven.Client.Documents.Session;
 
 namespace MassTransit.RavenDbIntegration
 {
@@ -37,9 +37,9 @@ namespace MassTransit.RavenDbIntegration
             {
                 return await session.Query<TSaga>()
                     .Where(query.FilterExpression)
-                    .Customize(x => x.WaitForNonStaleResultsAsOf(DateTime.Now + TimeSpan.FromMinutes(1)))
                     .Select(x => x.CorrelationId)
-                    .ToListAsync();
+                    .ToListAsync()
+                    .ConfigureAwait(false);
             }
         }
 
@@ -62,15 +62,15 @@ namespace MassTransit.RavenDbIntegration
             using (var session = OpenSession())
             {
                 var inserted = false;
-                TSaga instance;
 
-                if (policy.PreInsertInstance(context, out instance))
-                    inserted = await PreInsertSagaInstance<T>(session, instance);
+                if (policy.PreInsertInstance(context, out var instance))
+                    inserted = await PreInsertSagaInstance<T>(session, instance).ConfigureAwait(false);
 
                 try
                 {
                     if (instance == null)
-                        instance = await session.LoadAsync<TSaga>(ConvertToSagaId(session, sagaId))
+                        instance = await session
+                            .LoadAsync<TSaga>(RavenDbSagaConventions.GetSagaDocumentId<TSaga>(sagaId))
                             .ConfigureAwait(false);
 
                     if (instance == null)
@@ -85,16 +85,19 @@ namespace MassTransit.RavenDbIntegration
                             _log.DebugFormat("SAGA:{0}:{1} Used {2}", TypeMetadataCache<TSaga>.ShortName,
                                 instance.CorrelationId, TypeMetadataCache<T>.ShortName);
                         }
+
                         var sagaConsumeContext = new RavenDbSagaConsumeContext<TSaga, T>(session, context, instance);
 
                         await policy.Existing(sagaConsumeContext, next).ConfigureAwait(false);
 
                         if (inserted && !sagaConsumeContext.IsCompleted)
-                            await session.StoreAsync(instance, GetSagaId(session, instance)).ConfigureAwait(false);
+                            await session.StoreAsync(instance, RavenDbSagaConventions.GetSagaDocumentId(instance))
+                                .ConfigureAwait(false);
 
                         if (_log.IsDebugEnabled)
                             _log.DebugFormat("SAGA (Send): New saga state: {@Saga}", instance);
                     }
+
                     await session.SaveChangesAsync().ConfigureAwait(false);
                 }
                 catch (Exception ex)
@@ -125,11 +128,12 @@ namespace MassTransit.RavenDbIntegration
                     }
                     else
                     {
-                        var ids = guids.Select(x => ConvertToSagaId(session, x)).ToArray();
-                        var instances = await session.LoadAsync<TSaga>(ids);
+                        var ids = guids.Select(RavenDbSagaConventions.GetSagaDocumentId<TSaga>).ToArray();
+                        var instances = await session.LoadAsync<TSaga>(ids).ConfigureAwait(false);
                         foreach (var instance in instances)
-                            await SendToInstance(context, policy, instance, next, session).ConfigureAwait(false);
+                            await SendToInstance(context, policy, instance.Value, next, session).ConfigureAwait(false);
                     }
+
                     await session.SaveChangesAsync();
                 }
                 catch (SagaException sex)
@@ -155,8 +159,9 @@ namespace MassTransit.RavenDbIntegration
         {
             try
             {
-                await session.StoreAsync(instance, GetSagaId(session, instance));
-                await session.SaveChangesAsync();
+                await session.StoreAsync(instance, RavenDbSagaConventions.GetSagaDocumentId(instance))
+                    .ConfigureAwait(false);
+                await session.SaveChangesAsync().ConfigureAwait(false);
 
                 _log.DebugFormat("SAGA:{0}:{1} Insert {2}", TypeMetadataCache<TSaga>.ShortName, instance.CorrelationId,
                     TypeMetadataCache<T>.ShortName);
@@ -170,17 +175,10 @@ namespace MassTransit.RavenDbIntegration
                         instance.CorrelationId,
                         TypeMetadataCache<T>.ShortName, ex.Message);
                 }
+
                 return false;
             }
         }
-
-        private static string ConvertToSagaId(IAsyncDocumentSession session, Guid guid)
-            => session.Advanced.DocumentStore.Conventions.FindFullDocumentKeyFromNonStringIdentifier(guid,
-                typeof(TSaga), false);
-
-        private static string GetSagaId(IAsyncDocumentSession session, TSaga instance)
-            => session.Advanced.DocumentStore.Conventions.FindFullDocumentKeyFromNonStringIdentifier(
-                instance.CorrelationId, instance.GetType(), false);
 
         private static async Task SendToInstance<T>(SagaQueryConsumeContext<TSaga, T> context,
             ISagaPolicy<TSaga, T> policy, TSaga instance,
@@ -195,6 +193,7 @@ namespace MassTransit.RavenDbIntegration
                         instance.CorrelationId,
                         TypeMetadataCache<T>.ShortName);
                 }
+
                 var sagaConsumeContext = new RavenDbSagaConsumeContext<TSaga, T>(session, context, instance);
 
                 await policy.Existing(sagaConsumeContext, next).ConfigureAwait(false);
@@ -246,20 +245,22 @@ namespace MassTransit.RavenDbIntegration
                 await _next.Send(proxy).ConfigureAwait(false);
 
                 if (!proxy.IsCompleted)
-                    await _session.StoreAsync(context.Saga, GetSagaId(_session, context.Saga));
+                    await _session.StoreAsync(context.Saga, RavenDbSagaConventions.GetSagaDocumentId(context.Saga))
+                        .ConfigureAwait(false);
             }
         }
 
         public async Task<IList<TSaga>> FindWhere(Expression<Func<TSaga, bool>> filter)
         {
             using (var session = _store.OpenAsyncSession())
-                return await session.Query<TSaga>().Where(filter).ToListAsync();
+                return await session.Query<TSaga>().Where(filter).ToListAsync().ConfigureAwait(false);
         }
 
         public async Task<TSaga> Load(Guid sagaId)
         {
             using (var session = _store.OpenAsyncSession())
-                return await session.LoadAsync<TSaga>(ConvertToSagaId(session, sagaId));
+                return await session.LoadAsync<TSaga>(RavenDbSagaConventions.GetSagaDocumentId<TSaga>(sagaId))
+                    .ConfigureAwait(false);
         }
     }
 }

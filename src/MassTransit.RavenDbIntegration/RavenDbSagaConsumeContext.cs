@@ -4,8 +4,7 @@ using MassTransit.Context;
 using MassTransit.Logging;
 using MassTransit.Saga;
 using MassTransit.Util;
-using Raven.Abstractions.Data;
-using Raven.Client;
+using Raven.Client.Documents.Session;
 
 namespace MassTransit.RavenDbIntegration
 {
@@ -18,7 +17,8 @@ namespace MassTransit.RavenDbIntegration
         private static readonly ILog Log = Logger.Get<RavenDbSagaRepository<TSaga>>();
         private readonly IAsyncDocumentSession _session;
 
-        public RavenDbSagaConsumeContext(IAsyncDocumentSession session, ConsumeContext<TMessage> context, TSaga instance)
+        public RavenDbSagaConsumeContext(IAsyncDocumentSession session, ConsumeContext<TMessage> context,
+            TSaga instance)
             : base(context)
         {
             Saga = instance;
@@ -29,9 +29,9 @@ namespace MassTransit.RavenDbIntegration
 
         SagaConsumeContext<TSaga, T> SagaConsumeContext<TSaga>.PopContext<T>()
         {
-            var context = this as SagaConsumeContext<TSaga, T>;
-            if (context == null)
-                throw new ContextException($"The ConsumeContext<{TypeMetadataCache<TMessage>.ShortName}> could not be cast to {TypeMetadataCache<T>.ShortName}");
+            if (!(this is SagaConsumeContext<TSaga, T> context))
+                throw new ContextException(
+                    $"The ConsumeContext<{TypeMetadataCache<TMessage>.ShortName}> could not be cast to {TypeMetadataCache<T>.ShortName}");
 
             return context;
         }
@@ -42,7 +42,8 @@ namespace MassTransit.RavenDbIntegration
             IsCompleted = true;
             if (Log.IsDebugEnabled)
             {
-                Log.DebugFormat("SAGA:{0}:{1} Removed {2}", TypeMetadataCache<TSaga>.ShortName, TypeMetadataCache<TMessage>.ShortName,
+                Log.DebugFormat("SAGA:{0}:{1} Removed {2}", TypeMetadataCache<TSaga>.ShortName,
+                    TypeMetadataCache<TMessage>.ShortName,
                     Saga.CorrelationId);
             }
 

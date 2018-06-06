@@ -1,12 +1,18 @@
 # MassTransit.RavenDbIntegration
-RavenDb Saga persistence for MassTransit 3
+RavenDb 4 Saga persistence for MassTransit 5
 
 [![az-github MyGet Build Status](https://www.myget.org/BuildSource/Badge/az-github?identifier=b5d89944-9bb6-4f62-aa11-77807aa395f0)](https://www.myget.org/)
 [![NuGet](https://img.shields.io/nuget/v/MassTransit.RavenDbIntegration.svg)](https://www.nuget.org/packages/MassTransit.RavenDbIntegration/)
 
+**Important**: the latest versions of this library only supports RavenDb 4 and MassTransit 5. Search for previous versions on
+nuget.org to find the one that works with RavenDb 3.5 and MassTransit 3.
+
 ## Installation
 
 The library is published on nuget.org.
+
+The package contains versions for .NET Framework 4.6.1 and .NET Standard 2.0. You can use it in both full framework
+applications and .NET Core 2 applications.
 
 Use `Install-Package MassTransit.RavenDbIntegration` to install it.
 

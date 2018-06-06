@@ -1,0 +1,58 @@
+-
+  branches:
+    only:
+      - master
+
+  image: Visual Studio 2017
+
+  install:
+    - choco install gitversion.portable -pre -y
+
+  assembly_info:
+    patch: false
+
+  artifacts:
+    path: 'src\MassTransit.RavenDbIntegration\bin\Release\*.nupkg'
+
+  configuration: Release
+
+  build_script:
+    - dotnet --version
+    - gitversion /l console /output buildserver
+    - echo %GitVersion_NuGetVersion%
+    - dotnet restore ./src/MassTransit.RavenDbIntegration.sln
+    - msbuild /t:build,pack /p:Configuration=Release /p:Version=%GitVersion_NuGetVersion% ./src/MassTransit.RavenDbIntegration/MassTransit.RavenDbIntegration.csproj
+
+  test_script:
+    - docker-compose up
+    - dotnet test ./src/MassTransit.RavenDbIntegration.Tests/MassTransit.RavenDbIntegration.Tests.csproj
+    - docker-compose down
+-
+  branches:
+    only:
+      - develop
+
+  image: Visual Studio 2017
+
+  install:
+    - choco install gitversion.portable -pre -y
+
+  assembly_info:
+    patch: false
+
+  artifacts:
+    path: 'src\MassTransit.RavenDbIntegration\bin\Debug\*.nupkg'
+
+  configuration: Debug
+
+  build_script:
+    - dotnet --version
+    - gitversion /l console /output buildserver
+    - echo %GitVersion_NuGetVersion%
+    - dotnet restore ./src/MassTransit.RavenDbIntegration.sln
+    - msbuild /t:build,pack /p:Configuration=Debug /p:Version=%GitVersion_NuGetVersion% ./src/MassTransit.RavenDbIntegration/MassTransit.RavenDbIntegration.csproj
+
+  test_script:
+    - docker-compose up
+    - dotnet test ./src/MassTransit.RavenDbIntegration.Tests/MassTransit.RavenDbIntegration.Tests.csproj
+    - docker-compose down

@@ -1,80 +1,126 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using MassTransit.Saga;
-using MassTransit.TestFramework;
-using NUnit.Framework;
-using Raven.Client;
-using Raven.Client.Embedded;
+using MassTransit.Testing;
+using Newtonsoft.Json;
+using Raven.Client.Documents;
+using Raven.Client.ServerWide;
+using Raven.Client.ServerWide.Operations;
 using Shouldly;
+using Xunit;
 
 namespace MassTransit.RavenDbIntegration.Tests
 {
-    [TestFixture, Category("Integration")]
-    public class LocatingAnExistingSaga : InMemoryTestFixture
+    public class Blah
     {
-        IDocumentStore _store;
-        ISagaRepository<SimpleSaga> _sagaRepository;
+        public Guid CorrelationId { get; set; }
+    }
+    
+    public class LocatingAnExistingSaga : IClassFixture<SagaPersistenceFixture>
+    {
+        private readonly SagaPersistenceFixture _fixture;
+        readonly TimeSpan TestTimeout = TimeSpan.FromSeconds(5);
 
-        public LocatingAnExistingSaga()
+        public LocatingAnExistingSaga(SagaPersistenceFixture fixture)
         {
-            _store = new EmbeddableDocumentStore
-            {
-                RunInMemory = true
-            };
-            _store.Initialize();
-            _store.RegisterSagaIdConvention();
-            _sagaRepository = new RavenDbSagaRepository<SimpleSaga>(_store);
+            _fixture = fixture;
         }
 
-        [OneTimeSetUp]
-        public void SetupStore()
-        {
-        }
-
-        [OneTimeTearDown]
-        public void TearDownStore()
-        {
-            _store.Dispose();
-        }
-
-        [Test]
+        [Fact]
         public async Task A_correlated_message_should_find_the_correct_saga()
         {
             Guid sagaId = NewId.NextGuid();
             var message = new InitiateSimpleSaga(sagaId);
 
-            await InputQueueSendEndpoint.Send(message);
+            await _fixture.Harness.InputQueueSendEndpoint.Send(message);
 
-            Guid? foundId = await _sagaRepository.ShouldContainSaga(message.CorrelationId, TestTimeout);
+            _fixture.Saga.Consumed.Select<InitiateSimpleSaga>().Any();
 
-            foundId.HasValue.ShouldBe(true);
+            Guid? found = await _fixture.SagaRepository.ShouldContainSaga(message.CorrelationId, TestTimeout);
 
-            var nextMessage = new CompleteSimpleSaga { CorrelationId = sagaId };
+            found.ShouldBe(sagaId);
 
-            await InputQueueSendEndpoint.Send(nextMessage);
+            var nextMessage = new CompleteSimpleSaga {CorrelationId = sagaId};
 
-            foundId = await _sagaRepository.ShouldContainSaga(x => x.CorrelationId == sagaId && x.Completed, TestTimeout);
+            await _fixture.Harness.InputQueueSendEndpoint.Send(nextMessage);
 
-            foundId.HasValue.ShouldBe(true);
+            _fixture.Saga.Consumed.Select<CompleteSimpleSaga>().Any();
+            await Task.Delay(TimeSpan.FromSeconds(1));
+
+            found = await _fixture.SagaRepository.ShouldContainSaga(x => x.SomeOtherId == sagaId && x.Completed,
+                TestTimeout);
+            found.ShouldBe(sagaId);
         }
 
-        [Test]
-        public async Task An_initiating_message_should_start_the_saga()
+        [Fact]
+        public async Task An_observed_message_should_find_and_update_the_correct_saga()
         {
             Guid sagaId = NewId.NextGuid();
-            var message = new InitiateSimpleSaga(sagaId);
+            var message = new InitiateSimpleSaga(sagaId) {Name = "MySimpleSaga"};
 
-            await InputQueueSendEndpoint.Send(message);
+            await _fixture.Harness.InputQueueSendEndpoint.Send(message);
 
-            Guid? foundId = await _sagaRepository.ShouldContainSaga(message.CorrelationId, TestTimeout);
+            Guid? found = await _fixture.SagaRepository.ShouldContainSaga(message.CorrelationId, TestTimeout);
 
-            foundId.HasValue.ShouldBe(true);
+            found.ShouldBe(sagaId);
+
+            var nextMessage = new ObservableSagaMessage("MySimpleSaga");
+
+            await _fixture.Harness.InputQueueSendEndpoint.Send(nextMessage);
+
+            found = await _fixture.SagaRepository.ShouldContainSaga(x => x.SomeOtherId == sagaId && x.Observed,
+                TestTimeout);
+            found.ShouldBe(sagaId);
         }
 
-
-        protected override void ConfigureInMemoryReceiveEndpoint(IInMemoryReceiveEndpointConfigurator configurator)
+        [Fact]
+        public async Task An_initiating_message_should_start_the_saga()
         {
-            configurator.Saga(_sagaRepository);
+            var sagaId = NewId.NextGuid();
+            var message = new InitiateSimpleSaga(sagaId);
+
+            await _fixture.Harness.InputQueueSendEndpoint.Send(message);
+
+            var found = await _fixture.SagaRepository.ShouldContainSaga(message.CorrelationId, TestTimeout);
+
+            found.ShouldBe(sagaId);
+        }
+
+    }
+
+    public class SagaPersistenceFixture : IAsyncLifetime
+    {
+        private const string dbName = "MassTransitTest";
+        private IDocumentStore Store { get; }
+        public RavenDbSagaRepository<SimpleSaga> SagaRepository { get; }
+        public InMemoryTestHarness Harness { get; }
+        public SagaTestHarness<SimpleSaga> Saga { get; }
+
+        public SagaPersistenceFixture()
+        {
+            Store = new DocumentStore()
+            {
+                Urls = new[] {"http://localhost:8080"},
+                Database = dbName
+            };
+            Store.Initialize();
+            
+            SagaRepository = new RavenDbSagaRepository<SimpleSaga>(Store);
+            Harness = new InMemoryTestHarness();
+            Saga = Harness.Saga(SagaRepository);
+        }
+
+        public async Task InitializeAsync()
+        {
+            await Store.Maintenance.Server.SendAsync(new CreateDatabaseOperation(new DatabaseRecord(dbName)));
+            await Harness.Start();
+        }
+
+        public async Task DisposeAsync()
+        {
+            await Store.Maintenance.Server.SendAsync(new DeleteDatabasesOperation(dbName, true));
+            await Harness.Stop();
+            Store.Dispose();
         }
     }
 }
