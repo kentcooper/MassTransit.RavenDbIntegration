@@ -24,6 +24,7 @@
     - dotnet restore ./src/MassTransit.RavenDbIntegration.sln
     - msbuild /t:build,pack /p:Configuration=Release /p:Version=%GitVersion_NuGetVersion% ./src/MassTransit.RavenDbIntegration/MassTransit.RavenDbIntegration.csproj
 
+-
   branches:
     only:
       - develop
