@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MassTransit.Saga;
 using MassTransit.TestFramework;
+using MassTransit.Testing;
 using NUnit.Framework;
 using Raven.Client;
 using Raven.Client.Embedded;
