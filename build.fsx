@@ -35,10 +35,10 @@ let gitversion = "packages/GitVersion.CommandLine/tools/GitVersion.exe"
 let appReferences =
     !! "src/**/*.csproj"
       ++ "src/**/*.fsproj"
-      -- "src/**/*Tests.csproj"
+      -- "src/**/*.Tests.csproj"
 
 let testReferences =
-    !! "src/**/*Tests.csproj"
+    !! "src/**/*.Tests.csproj"
 
 type Version = {
     Major: int
@@ -123,7 +123,7 @@ Target "Push" (fun _ ->
 )
 
 Target "Test" (fun _ ->
-    !! (testsDir + "/*.Tests.dll")
+    !! (testsDir + "/MassTransit.RavenDb*.Tests.dll")
       |> NUnit3 (fun p ->
           {p with
              ToolPath = "packages\\NUnit.ConsoleRunner\\tools\\nunit3-console.exe"
