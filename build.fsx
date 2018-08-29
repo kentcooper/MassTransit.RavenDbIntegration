@@ -135,7 +135,7 @@ Target "Test" (fun _ ->
   ==> "SetVersion"
   ==> "BuildApp"
   ==> "BuildTests"
-  ==> "Test"
+//  ==> "Test"
   ==> "Pack"
   ==> "Push"
 
