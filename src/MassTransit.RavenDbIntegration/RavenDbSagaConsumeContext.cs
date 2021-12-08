@@ -4,8 +4,7 @@ using MassTransit.Context;
 using MassTransit.Logging;
 using MassTransit.Saga;
 using MassTransit.Util;
-using Raven.Abstractions.Data;
-using Raven.Client;
+using Raven.Client.Documents.Session;
 
 namespace MassTransit.RavenDbIntegration
 {

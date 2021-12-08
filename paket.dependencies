@@ -6,8 +6,8 @@ nuget MassTransit
 nuget MassTransit.TestFramework
 nuget NewId
 nuget Newtonsoft.Json 
-nuget RavenDb.Client < 4
-nuget RavenDb.Embedded < 4
+nuget RavenDb.Client ~> 5.0
+nuget RavenDb.Embedded ~> 5.0
 nuget Shouldly
 nuget NUnit
 nuget NUnit.Runners

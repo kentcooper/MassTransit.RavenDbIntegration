@@ -1,16 +1,14 @@
 ﻿using System.Threading.Tasks;
 using MassTransit.Saga;
-using Raven.Abstractions.Util;
-using Raven.Client;
-using Raven.Client.Connection.Async;
+using Raven.Client.Documents;
 
 namespace MassTransit.RavenDbIntegration
 {
     public static class RavenDbSagaConventions
     {
-        public static Task<string> GetSagaDocumentId(string dbName, IAsyncDatabaseCommands command, ISaga saga)
+        public static Task<string> GetSagaDocumentId(string dbName, ISaga saga)
         {
-            return new CompletedTask<string>($"{typeof (ISaga).Name}/{saga.CorrelationId}");
+            return Task.FromResult($"{typeof (ISaga).Name}/{saga.CorrelationId}");
         }
 
         public static void RegisterSagaIdConvention(this IDocumentStore store)
